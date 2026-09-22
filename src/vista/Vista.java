@@ -71,9 +71,10 @@ public class Vista extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(0, 204, 204));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_tp6/icons8-carrito-de-compras-48.png"))); // NOI18N
-        jButton1.setText("Agregar");
+        jButton1.setText("btnAgregar");
         jButton1.setBorderPainted(false);
         jButton1.setRequestFocusEnabled(false);
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Categoria:");
@@ -186,6 +187,10 @@ public class Vista extends javax.swing.JFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
