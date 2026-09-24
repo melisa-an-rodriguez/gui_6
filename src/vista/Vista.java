@@ -4,6 +4,9 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author usuario
@@ -17,6 +20,12 @@ public class Vista extends javax.swing.JFrame {
      */
     public Vista() {
         initComponents();
+        cmbCategoria.addItem("Seleccione Opcion");
+        cmbCategoria.addItem("Comestible");
+        cmbCategoria.addItem("Limpieza");
+        cmbCategoria.addItem("Farmacia");
+        cmbCategoria.addItem("Ropa");
+        cmbCategoria.addItem("Perfumeria");
     }
 
     /**
@@ -30,6 +39,7 @@ public class Vista extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         panelDatos = new javax.swing.JPanel();
         cmbCategoria = new javax.swing.JComboBox<>();
@@ -37,7 +47,7 @@ public class Vista extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -51,6 +61,8 @@ public class Vista extends javax.swing.JFrame {
         jTextField1.setText("Categoría:");
         jTextField1.setAutoscrolls(false);
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
+
+        jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,12 +81,13 @@ public class Vista extends javax.swing.JFrame {
 
         txtNombre.addActionListener(this::txtNombreActionPerformed);
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 204));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_tp6/icons8-carrito-de-compras-48.png"))); // NOI18N
-        jButton1.setText("btnAgregar");
-        jButton1.setBorderPainted(false);
-        jButton1.setRequestFocusEnabled(false);
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 204));
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_tp6/icons8-carrito-de-compras-48.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBorderPainted(false);
+        btnAgregar.setRequestFocusEnabled(false);
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Categoria:");
@@ -95,7 +108,7 @@ public class Vista extends javax.swing.JFrame {
                     .addComponent(txtNombre)
                     .addComponent(txtPrecio))
                 .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         panelDatosLayout.setVerticalGroup(
@@ -109,7 +122,7 @@ public class Vista extends javax.swing.JFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,9 +201,26 @@ public class Vista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try {
+            String categoria = cmbCategoria.getSelectedItem().toString();
+            String nombre = txtNombre.getText();
+            double precio = Double.parseDouble(txtPrecio.getText());
+
+            DefaultTableModel modelo = (DefaultTableModel) tblProductos.getModel();
+
+            modelo.addRow(new Object[]{
+                nombre,
+                categoria,
+                precio
+            });
+            cmbCategoria.setSelectedIndex(0);
+            txtNombre.setText("");
+            txtPrecio.setText("");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,"Ingrese un precio válido");
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +248,10 @@ public class Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
